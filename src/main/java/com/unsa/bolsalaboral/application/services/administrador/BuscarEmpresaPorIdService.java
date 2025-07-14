@@ -8,19 +8,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CambiarEstadoEmpresaService {
+public class BuscarEmpresaPorIdService {
     private final EmpresaRepository empresaRepository;
 
-    public CambiarEstadoEmpresaService(EmpresaRepository empresaRepository) {
+    public BuscarEmpresaPorIdService(EmpresaRepository empresaRepository) {
         this.empresaRepository = empresaRepository;
     }
 
     public Optional<Empresa> ejecutar(UUID id) {
-        Optional<Empresa> empresaOpt =  empresaRepository.buscarPorId(id);
-
-        return empresaOpt.map(empresa -> {
-            empresa.setActiva(!empresa.getActiva());
-            return empresaRepository.guardar(empresa);
-        });
+        return empresaRepository.buscarPorId(id);
     }
 }
