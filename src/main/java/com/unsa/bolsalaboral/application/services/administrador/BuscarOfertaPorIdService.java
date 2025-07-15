@@ -4,20 +4,18 @@ import com.unsa.bolsalaboral.domain.models.Oferta;
 import com.unsa.bolsalaboral.domain.repository.OfertaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class InactivarOfertaService {
+public class BuscarOfertaPorIdService {
     private final OfertaRepository ofertaRepository;
 
-    public InactivarOfertaService(OfertaRepository ofertaRepository) {
+    public BuscarOfertaPorIdService(OfertaRepository ofertaRepository) {
         this.ofertaRepository = ofertaRepository;
     }
 
-    public void ejecutar(UUID id) {
-        ofertaRepository.buscarPorId(id).ifPresent(oferta -> {
-            oferta.setActiva(!oferta.isActiva()); // invierte el estado actual
-            ofertaRepository.guardar(oferta);
-        });
+    public Optional<Oferta> ejecutar(UUID id) {
+        return ofertaRepository.buscarPorId(id);
     }
 }
