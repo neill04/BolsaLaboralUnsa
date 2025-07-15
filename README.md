@@ -103,15 +103,6 @@ Cada paquete contiene sus clases clave, respetando el principio de separación d
 
 ---
 
-## ✅ Estado Actual
-
-✅ Modelo de dominio implementado  
-✅ Front-end funcional con vistas de usuario  
-✅ Controladores y servicios conectados  
-🔄 Pendiente: integración completa con base de datos
-
----
-
 ## Requisitos Técnicos
 
 - Lenguaje: JAVA / SPRING BOOT / etc.
