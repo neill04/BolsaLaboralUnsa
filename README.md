@@ -24,3 +24,4 @@ JavaBeans: uso de get, set, e is para acceso a atributos.
     @GetMapping, @PostMapping, @PutMapping, etc.
     Rutas limpias
 
+3. Things: Se hace uso clases y objetos, se encapsula datos.
