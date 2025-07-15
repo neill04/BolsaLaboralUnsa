@@ -33,7 +33,7 @@ Además, el sistema permite que **administradores** gestionen empresas y ofertas
   - Publicar ofertas laborales (por medio del admin)
 
 📌 **Diagrama de Casos de Uso UML:**  
-![Casos de Uso](./docs/casos-de-uso.png)
+![Casos de Uso](./docs/Diagrama_casos_de_uso.png)
 
 ---
 
@@ -90,16 +90,7 @@ El sistema está dividido en capas según la arquitectura por capas:
 - `repositorio`: acceso a datos
 
 📌 **Diagrama de Paquetes:**  
-![Diagrama de Paquetes](./docs/diagrama-paquetes.png)
-
----
-
-### 🔸 Diagrama de Clases por Paquete
-
-Cada paquete contiene sus clases clave, respetando el principio de separación de responsabilidades.
-
-📌 **Imagen del diagrama de clases con arquitectura:**  
-![Clases por Paquete](./docs/Diagrama_clases_arquitectura.png)
+![Diagrama de Paquetes](./docs/Diagrama_de_paquetes.png)
 
 ---
 
