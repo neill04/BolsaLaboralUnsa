@@ -1,4 +1,4 @@
-package com.unsa.bolsalaboral.api.Controllers;
+package com.unsa.bolsalaboral.api.controllers;
 
 import com.unsa.bolsalaboral.application.services.administrador.*;
 import com.unsa.bolsalaboral.domain.models.Empresa;
