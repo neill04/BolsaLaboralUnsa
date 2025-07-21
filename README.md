@@ -124,4 +124,3 @@ Este estilo se adoptó para exponer los recursos de forma clara y estandarizada 
 | POST   | `/api/empresas`             | Registrar una nueva empresa          |
 | PUT    | `/api/empresas/{id}`        | Editar una empresa existente         |
 | PUT    | `/api/empresas/{id}/estado` | Cambiar el estado activo/inactivo    |
-
