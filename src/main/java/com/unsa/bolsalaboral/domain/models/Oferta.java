@@ -151,6 +151,72 @@ public class Oferta {
         this.empresa = empresa;
         this.updatedAt = LocalDateTime.now();
     }
+public static class Builder {
+    private UUID id;
+    private String titulo;
+    private String descripcion;
+    private String area;
+    private Double sueldo;
+    private LocalDateTime fecha;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Boolean activa;
+    private Empresa empresa;
+
+    public Builder id(UUID id) {
+        this.id = id;
+        return this;
+    }
+
+    public Builder titulo(String titulo) {
+        this.titulo = titulo;
+        return this;
+    }
+
+    public Builder descripcion(String descripcion) {
+        this.descripcion = descripcion;
+        return this;
+    }
+
+    public Builder area(String area) {
+        this.area = area;
+        return this;
+    }
+
+    public Builder sueldo(Double sueldo) {
+        this.sueldo = sueldo;
+        return this;
+    }
+
+    public Builder fecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+        return this;
+    }
+
+    public Builder createdAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public Builder updatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    public Builder activa(Boolean activa) {
+        this.activa = activa;
+        return this;
+    }
+
+    public Builder empresa(Empresa empresa) {
+        this.empresa = empresa;
+        return this;
+    }
+
+    public Oferta build() {
+        return new Oferta(id, titulo, descripcion, area, sueldo, fecha, createdAt, updatedAt, activa, empresa);
+    }
+}
 
 
     @Override

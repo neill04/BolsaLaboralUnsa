@@ -17,7 +17,7 @@ public class RegistrarOfertaService {
     public Oferta ejecutar(Oferta oferta) {
         oferta.setCreatedAt(LocalDateTime.now());
         oferta.setUpdatedAt(LocalDateTime.now());
-        oferta.setActiva(true);  // si manejas estado
+        oferta.setActiva(true);  
         return ofertaRepository.guardar(oferta);
     }
 }
