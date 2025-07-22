@@ -124,3 +124,151 @@ Este estilo se adoptó para exponer los recursos de forma clara y estandarizada 
 | POST   | `/api/empresas`             | Registrar una nueva empresa          |
 | PUT    | `/api/empresas/{id}`        | Editar una empresa existente         |
 | PUT    | `/api/empresas/{id}/estado` | Cambiar el estado activo/inactivo    |
+
+# Clean Code
+En el presente informe se describe las prácticas de codificación aplicadas en la implementación de los módulos del sistema. En este caso para la implementación del servicio o caso de uso **Registrar Observaciones** por parte del actor **profesor**.
+
+### 1. Nombres
+**Práctica:** Se usaron nombres descriptivos para las clases, variables y métodos, evitando abreviaciones confusas.
+
+```java
+private UUID id;
+private String contenido;
+private LocalDate fecha;
+private Estudiante estudiante;
+private Profesor profesor;
+```
+
+### 2. Funciones
+**Práctica:** Las funciones tienen una sola responsabilidad. Se evita mezclar lógica de negocios con acceso a datos.
+
+```java
+@PostMapping("/observaciones")
+public ResponseEntity<Observacion> registrarObservacion(@RequestBody Observacion observacion) {
+    Observacion nuevaObservacion = registrarObservacionesService.ejecutar(observacion);
+    return ResponseEntity.ok(nuevaObservacion);
+}
+```
+
+### 3. Comentarios
+**Práctica:** Comentarios solo cuando el código no es autoexplicativo.
+
+```java
+public Observacion ejecutar(Observacion observacion) {
+    // Guardar una nueva observación con las relaciones establecidas
+    return observacionRepository.guardar(observacion);
+}
+```
+### 4. Estructura del Código Fuente
+**Práctica:** Organización en paquetes por responsabilidades: controller, model, repository.
+
+![Organización en paquetes](./docs/Estructura_de_carpetas.png)
+
+### 5. Objetos/Estructura de Datos
+**Práctica:** Se utilizan relaciones bien definidas con **@ManyToOne**.
+
+```java
+@ManyToOne
+@JoinColumn(name = "estudiante_id", nullable = false)
+private Estudiante estudiante;
+
+@ManyToOne
+@JoinColumn(name = "profesor_id", nullable = false)
+private Profesor profesor;
+```
+
+### 6. Tratamiento de Errores
+**Práctica:** Se envolvió la lógica de registro de observaciones en un bloque try-catch para manejar posibles errores en tiempo de ejecución, como fallos de validación o errores de persistencia. Esto asegura que el servicio no colapse y se puedan enviar respuestas adecuadas.
+
+```java
+@PostMapping("/observaciones")
+public ResponseEntity<?> registrarObservacion(@RequestBody Observacion observacion) {
+    try {
+        Observacion nuevaObservacion = registrarObservacionesService.ejecutar(observacion);
+        return ResponseEntity.ok(nuevaObservacion);
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body("Datos inválidos: " + e.getMessage());
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body("Error inesperado: " + e.getMessage());
+    }
+}
+```
+
+### 7. Clases
+**Práctica:** Cada clase representa una sola entidad/responsabilidad, con nombres claros y anotacioens JPA.
+
+```java
+@Entity
+public class Observacion {
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "profesor_id")
+    private Profesor profesor;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "estudiante_id")
+    private Estudiante estudiante;
+
+    @Column(nullable = false, length = 1000)
+    private String contenido;
+
+    @Column(nullable = false)
+    private LocalDateTime fecha;
+}
+```
+
+### Reporte de SonarLint
+Se utilizó para identificar y corregir:
+ - Variables sin uso
+ - Errores de asignación nula
+ - Malas prácticas en la definición de clases y métodos.
+
+# Aplicación de Principios SOLID
+En el presente informe se detallan los principios SOLID aplicados en el proyecto, acompañados de ejemplos concretos y explicaciones.
+
+### S - Principio de Responsabilidad Única (SRP)
+
+Cada clase debe tener una única responsabilidad y razón para cambiar. No debe mezclar lógica de negocio con lógica de control o persistencia.
+
+```java
+@Service
+public class RegistrarObservacionesService {
+private final ObservacionRepository observacionRepository;
+
+    public RegistrarObservacionesService(ObservacionRepository observacionRepository) {
+        this.observacionRepository = observacionRepository;
+    }
+
+    public Observacion ejecutar(Observacion observacion) {
+        // Guardar una nueva observación con las relaciones establecidas
+        return observacionRepository.guardar(observacion);
+    }
+}
+```
+
+### O - Principio de Abierto/Cerrado (OCP)
+Las clases deben estar abiertas para extensión pero cerradas a modificación.
+
+```java
+public interface SpringDataObservacionRepository extends JpaRepository<Observacion, UUID> {
+    // Puede extenderse con nuevos métodos sin modificar la clase existente
+}
+```
+
+### D - Principio de Inversión de Dependencias (DIP)
+Los módulos de alto nivel no deben depender de módulos de bajo nivel. Ambos deben depender de abstracciones (interfaces).
+
+```java
+@Service
+public class RegistrarObservacionesService {
+    private final ObservacionRepository observacionRepository;
+
+    public RegistrarObservacionesService(ObservacionRepository observacionRepository) {
+        this.observacionRepository = observacionRepository;
+    }
+}
+```
