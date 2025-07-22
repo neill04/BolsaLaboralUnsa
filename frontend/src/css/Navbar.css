@@ -1,0 +1,31 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d60000;
+    padding: 10px 20px;
+    color: white;
+}
+
+.navbar-brand {
+    color: white;
+    font-weight: bold;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-search {
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+}
+
+.navbar-user {
+    font-size: 20px;
+}
