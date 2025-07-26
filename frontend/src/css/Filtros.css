@@ -1,0 +1,10 @@
+.filtros {
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.filtros input,
+.filtros button {
+    padding: 6px 8px;
+}
