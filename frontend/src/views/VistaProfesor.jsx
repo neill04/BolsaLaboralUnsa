@@ -1,29 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Filtros from '../components/Filtros';
 import EmpresaList from "../features/empresas/EmpresaList";
 import OfertaList from "../features/ofertas/OfertaList";
-
 function VistaProfesor() {
     const [tab, setTab] = useState('ofertas');
-    const [ofertas, setOfertas] = useState([]);
-    const [empresas, setEmpresas] = useState([]);
-
-    useEffect(() => {
-        if (tab === 'ofertas') {
-            fetch('/api/ofertas')
-                .then((r) => r.json())
-                .then(setOfertas)
-                .catch(() => {});
-        } else {
-            fetch('/api/empresas')
-                .then((r) => r.json())
-                .then(setEmpresas)
-                .catch(() => {});
-        }
-    }, [tab]);
+    const [filtro, setFiltro] = useState({});
 
     const handleFilter = (f) => {
-        console.log('Filtrar', f);
+        setFiltro(f);
     };
 
     return (
@@ -35,9 +19,17 @@ function VistaProfesor() {
             </div>
             <Filtros onFilter={handleFilter} />
             {tab === 'ofertas' ? (
-                <OfertaList ofertas={ofertas} />
+                <OfertaList
+                    filter={filtro}
+                    onView={(oferta) => alert(`Ver postulantes de ${oferta.titulo}`)}
+                    viewLabel="Ver postulantes"
+                />
             ) : (
-                <EmpresaList empresas={empresas} />
+                <EmpresaList
+                    filter={filtro}
+                    onView={(emp) => alert(`Consultar ${emp.nombre}`)}
+                    viewLabel="Detalles"
+                />
             )}
         </div>
     );

@@ -3,7 +3,14 @@ import { obtenerEmpresas } from "../../api/empresaService";
 import TablaEmpresas from "../../components/TablaEmpresas";
 
 
-const EmpresaList = () => {
+const EmpresaList = ({
+                         search = '',
+                         filter = {},
+                         onEdit,
+                         onDelete,
+                         onView,
+                         viewLabel = 'Ver',
+                     }) => {
     const [empresas, setEmpresas] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
@@ -35,21 +42,31 @@ const EmpresaList = () => {
         );
     };
 
+    const empresasFiltradas = empresas.filter((e) => {
+        const nombre = e.nombre || e.razonSocial || '';
+        const searchOk = !search || nombre.toLowerCase().includes(search.toLowerCase());
+        const carreraOk = !filter.carrera || nombre.toLowerCase().includes(filter.carrera.toLowerCase());
+        return searchOk && carreraOk;
+    });
+
     if (cargando) return <p className="text-center text-lg font-semibold">CARGANDO EMPRESAS</p>;
     if (error) return <p className="text-red-600">ERROR: {error}</p>;
 
     return (
         <div className="p-6">
-            {empresas.length > 0 ? (
+            {empresasFiltradas.length > 0 ? (
                 <TablaEmpresas
-                    empresas={empresas.map((e) => ({
+                    empresas={empresasFiltradas.map((e) => ({
                         ...e,
                         razonSocial: e.nombre,
                         tipo: e.descripcion,
                         celular: e.datosContacto?.telefono || "-",
-                        totalOfertas: 0
+                        totalOfertas: e.ofertas ? e.ofertas.length : e.totalOfertas || 0,
                     }))}
-                    onEdit={(empresa) => alert(`Editar empresa ${empresa.razonSocial}`)}
+                    onEdit={onEdit || editarEmpresa}
+                    onDelete={onDelete}
+                    onView={onView}
+                    viewLabel={viewLabel}
                 />
             ) : (
                 <p>No hay empresas registradas.</p>

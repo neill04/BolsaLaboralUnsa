@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import OfertaList from "../features/ofertas/OfertaList";
 import Filtros from '../components/Filtros';
 
 function VistaEstudiante() {
-    const [ofertas, setOfertas] = useState([]);
+    const [filtro, setFiltro] = useState({});
     const [cv, setCv] = useState(null);
     const [file, setFile] = useState(null);
 
-    useEffect(() => {
-        fetch('/api/ofertas')
-            .then((r) => r.json())
-            .then(setOfertas)
-            .catch(() => {});
-    }, []);
-
     const handleFilter = (f) => {
-        console.log('Filtrar', f);
+        setFiltro(f);
     };
 
     const handleUpload = () => {
@@ -28,7 +21,12 @@ function VistaEstudiante() {
         <div>
             <h2>Vista Estudiante</h2>
             <Filtros onFilter={handleFilter} />
-            <OfertaList ofertas={ofertas} />
+            <OfertaList
+                filter={filtro}
+                onView={(oferta) => alert(`Detalles de ${oferta.titulo}`)}
+                onApply={(oferta) => alert(`Postular a ${oferta.titulo}`)}
+                viewLabel="Ver más detalles"
+            />
             <h3>Mi CV</h3>
             {cv ? <p>Archivo subido: {cv}</p> : <p>No has subido un CV</p>}
             <input

@@ -1,31 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import EmpresaList from "../features/empresas/EmpresaList";
 import OfertaList from "../features/ofertas/OfertaList";
 
 function VistaAdmin() {
     const [tab, setTab] = useState('empresas');
-    const [empresas, setEmpresas] = useState([]);
-    const [ofertas, setOfertas] = useState([]);
     const [busqueda, setBusqueda] = useState('');
-
-    useEffect(() => {
-        fetch('/api/empresas')
-            .then((r) => r.json())
-            .then(setEmpresas)
-            .catch(() => {});
-        fetch('/api/ofertas')
-            .then((r) => r.json())
-            .then(setOfertas)
-            .catch(() => {});
-    }, []);
-
-    const filtradasEmpresas = empresas.filter((e) =>
-        e.razonSocial?.toLowerCase().includes(busqueda.toLowerCase())
-    );
-
-    const filtradasOfertas = ofertas.filter((o) =>
-        o.titulo?.toLowerCase().includes(busqueda.toLowerCase())
-    );
 
     return (
         <div>
@@ -42,9 +21,17 @@ function VistaAdmin() {
                 onChange={(e) => setBusqueda(e.target.value)}
             />
             {tab === 'empresas' ? (
-                <EmpresaList empresas={empresas} />
+                <EmpresaList
+                    search={busqueda}
+                    onEdit={(emp) => alert(`Editar empresa ${emp.nombre || emp.razonSocial}`)}
+                    onDelete={(emp) => alert(`Borrar empresa ${emp.nombre || emp.razonSocial}`)}
+                />
             ) : (
-                <OfertaList ofertas={ofertas} />
+                <OfertaList
+                    search={busqueda}
+                    onEdit={(ofer) => alert(`Editar oferta ${ofer.titulo}`)}
+                    onDelete={(ofer) => alert(`Borrar oferta ${ofer.titulo}`)}
+                />
             )}
         </div>
     );
