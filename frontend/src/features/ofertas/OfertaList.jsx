@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react";
+import { formatDistanceToNow } from 'date-fns';
+import { es } from 'date-fns/locale'; // para que salga en español
 import { obtenerOfertas } from "../../api/ofertaService";
 import TablaOfertas from "../../components/TablaOfertas";
 
@@ -29,10 +31,10 @@ const OfertaList = () => {
 
     const cambiarEstado = (id) => {
         setOfertas((prevOfertas) =>
-            prevOfertas.map((emp) =>
-                oft.id === id ? { ...oft, activa: !emp.activa } : emp
-            )
-        );
+        prevOfertas.map((oferta) =>
+            oferta.id === id ? { ...oferta, activa: !oferta.activa } : oferta
+        )
+    );
     };
 
     if (cargando) return <p className="text-center text-lg font-semibold">CARGANDO OFERTAS</p>;
@@ -42,14 +44,14 @@ const OfertaList = () => {
         <div className="p-6">
             {ofertas.length > 0 ? (
                 <TablaOfertas
-                    Ofertas={ofertas.map((o) => ({
+                    ofertas={ofertas.map((o) => ({
                         ...o,
                         titulo: o.titulo,
-                        empresa: o.nombre,
-                        postulaciones: 0,
-                        fecha: o.createdAt
+                        empresa: o.empresa.nombre,
+                        postulaciones: 1,
+                        fecha: formatDistanceToNow(new Date(o.fechaPublicacion), { addSuffix: true, locale: es }),
                     }))}
-                    onEdit={(empresa) => alert(`Editar empresa ${empresa.razonSocial}`)}
+                    onView={(oferta) => alert(`Ver postulantes de ${oferta.titulo}`)}
                 />
             ) : (
                 <p>No hay empresas registradas.</p>

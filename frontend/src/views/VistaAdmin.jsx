@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import TablaOfertas from '../components/TablaOfertas';
 import EmpresaList from "../features/empresas/EmpresaList";
+import OfertaList from "../features/ofertas/OfertaList";
 
 function VistaAdmin() {
     const [tab, setTab] = useState('empresas');
@@ -44,7 +44,7 @@ function VistaAdmin() {
             {tab === 'empresas' ? (
                 <EmpresaList empresas={empresas} />
             ) : (
-                <TablaOfertas ofertas={filtradasOfertas} onView={() => {}} />
+                <OfertaList ofertas={ofertas} />
             )}
         </div>
     );

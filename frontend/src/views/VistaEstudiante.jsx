@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import TablaOfertas from '../components/TablaOfertas';
+import OfertaList from "../features/ofertas/OfertaList";
 import Filtros from '../components/Filtros';
 
 function VistaEstudiante() {
@@ -28,7 +28,7 @@ function VistaEstudiante() {
         <div>
             <h2>Vista Estudiante</h2>
             <Filtros onFilter={handleFilter} />
-            <TablaOfertas ofertas={ofertas} />
+            <OfertaList ofertas={ofertas} />
             <h3>Mi CV</h3>
             {cv ? <p>Archivo subido: {cv}</p> : <p>No has subido un CV</p>}
             <input
