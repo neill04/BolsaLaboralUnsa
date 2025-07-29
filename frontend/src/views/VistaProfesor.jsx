@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TablaOfertas from '../components/TablaOfertas';
-import TablaEmpresas from '../components/TablaEmpresas';
 import Filtros from '../components/Filtros';
+import EmpresaList from "../features/empresas/EmpresaList";
 
 function VistaProfesor() {
     const [tab, setTab] = useState('ofertas');
@@ -37,9 +37,8 @@ function VistaProfesor() {
             {tab === 'ofertas' ? (
                 <TablaOfertas ofertas={ofertas} onView={(o) => console.log(o)} />
             ) : (
-                <TablaEmpresas empresas={empresas} />
+                <EmpresaList empresas={empresas} />
             )}
-            <div className="paginacion">Paginación aquí</div>
         </div>
     );
 }

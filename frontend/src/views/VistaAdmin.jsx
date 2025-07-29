@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import TablaEmpresas from '../components/TablaEmpresas';
 import TablaOfertas from '../components/TablaOfertas';
+import EmpresaList from "../features/empresas/EmpresaList";
 
 function VistaAdmin() {
     const [tab, setTab] = useState('empresas');
@@ -42,7 +42,7 @@ function VistaAdmin() {
                 onChange={(e) => setBusqueda(e.target.value)}
             />
             {tab === 'empresas' ? (
-                <TablaEmpresas empresas={filtradasEmpresas} onEdit={() => {}} onDelete={() => {}} />
+                <EmpresaList empresas={empresas} />
             ) : (
                 <TablaOfertas ofertas={filtradasOfertas} onView={() => {}} />
             )}

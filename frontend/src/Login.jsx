@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/Login.css";
-//import logo from "./assets/logo.png";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -16,7 +15,6 @@ function Login() {
 
     return (
         <div className="login-container">
-            <img src={logo} alt="Logo UNSA" className="login-logo" />
             <div className="login-title">BOLSA LABORAL</div>
 
             <form onSubmit={handleSubmit} className="login-form">
