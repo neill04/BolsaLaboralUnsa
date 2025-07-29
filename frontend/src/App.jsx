@@ -5,19 +5,22 @@ import Dashboard from './Dashboard';
 import VistaProfesor from './views/VistaProfesor';
 import VistaEstudiante from './views/VistaEstudiante';
 import VistaAdmin from './views/VistaAdmin';
-import Navbar from './components/Navbar';
+import EmpresaList from './features/empresas/EmpresaList';
+import Layout from "./components/Layout";
 
 function App() {
     return (
         <Router>
-
-            <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/profesor" element={<VistaProfesor />} />
-                <Route path="/estudiante" element={<VistaEstudiante />} />
-                <Route path="/admin" element={<VistaAdmin />} />
-            </Routes>
+            <Layout>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/profesor" element={<VistaProfesor />} />
+                    <Route path="/estudiante" element={<VistaEstudiante />} />
+                    <Route path="/admin" element={<VistaAdmin />} />
+                    <Route path="/empresas" element={<EmpresaList />} />
+                </Routes>
+            </Layout>
         </Router>
     );
 }
