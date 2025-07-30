@@ -75,6 +75,37 @@ function VistaAdmin() {
                     value={busqueda}
                     onChange={(e) => setBusqueda(e.target.value)}
                 />
+                {mostrarFormulario && (
+                    <div style={{ border: '1px solid gray', padding: 10, marginTop: 10 }}>
+                        <h3>Nueva Oferta</h3>
+                        <input
+                            type="text"
+                            placeholder="Título"
+                            value={nuevaOferta.titulo}
+                            onChange={(e) =>
+                                setNuevaOferta({ ...nuevaOferta, titulo: e.target.value })
+                            }
+                        />
+                        <input
+                            type="text"
+                            placeholder="Empresa"
+                            value={nuevaOferta.empresa}
+                            onChange={(e) =>
+                                setNuevaOferta({ ...nuevaOferta, empresa: e.target.value })
+                            }
+                        />
+                        <input
+                            type="date"
+                            placeholder="Fecha"
+                            value={nuevaOferta.fecha}
+                            onChange={(e) =>
+                                setNuevaOferta({ ...nuevaOferta, fecha: e.target.value })
+                            }
+                        />
+                        <button onClick={agregarOferta}>Guardar</button>
+                        <button onClick={() => setMostrarFormulario(false)}>Cancelar</button>
+                    </div>
+                    )}
                 {tab === 'empresas' ? (
                     <EmpresaList
                         search={busqueda}
