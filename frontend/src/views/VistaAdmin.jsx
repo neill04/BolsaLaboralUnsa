@@ -5,6 +5,7 @@ import ModalRegistrarEmpresa from "../features/empresas/ModalRegistrarEmpresa";
 import ModalRegistrarOferta from "../features/ofertas/ModalRegistrarOferta";
 import { registrarEmpresa, actualizarEmpresa } from "../api/empresaService";
 import { registrarOferta } from "../api/ofertaService";
+import '../css/Admin.css';
 
 function VistaAdmin() {
     const [tab, setTab] = useState('empresas');
@@ -57,18 +58,18 @@ function VistaAdmin() {
         <div className="bg-gray-50 min-h-screen p-6">
             <div className="bg-white p-6 rounded shadow">
                 <h2 className="text-xl font-bold mb-4">Vista Administrador</h2>
-                <div className="mb-4 flex gap-2 flex-wrap">
-                    <button className="bg-black text-white px-4 py-2 rounded hover:shadow" onClick={() => setTab('empresas')}>GESTIÓN DE EMPRESAS</button>
-                    <button className="bg-black text-white px-4 py-2 rounded hover:shadow" onClick={() => setTab('ofertas')}>GESTIÓN DE OFERTAS</button>
+                <div className="top-bar">
+                    <button className={`top-button ${tab === 'empresas' ? 'active' : 'inactive'}`} onClick={() => setTab('empresas')}>GESTIÓN DE EMPRESAS</button>
+                    <button className={`top-button ${tab === 'ofertas' ? 'active' : 'inactive'}`} onClick={() => setTab('ofertas')}>GESTIÓN DE OFERTAS</button>
                     {tab === 'empresas' && (
-                        <button className="bg-green-600 text-white px-3 py-2 rounded" onClick={abrirRegistrar}>+ Agregar Empresa</button>
+                        <button className="btn-add" onClick={abrirRegistrar}>+ Agregar Empresa</button>
                     )}
                     {tab === 'ofertas' && (
-                        <button className="bg-green-600 text-white px-3 py-2 rounded" onClick={abrirRegistrarOferta}>+ Agregar Oferta</button>
+                        <button className="btn-add" onClick={abrirRegistrarOferta}>+ Agregar Oferta</button>
                     )}
                 </div>
                 <input
-                    className="border p-2 rounded mb-4 w-full max-w-sm"
+                    className="search-input"
                     type="text"
                     placeholder="Buscar por nombre o estado"
                     value={busqueda}

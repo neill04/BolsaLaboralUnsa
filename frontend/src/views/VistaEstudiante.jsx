@@ -43,7 +43,15 @@ function VistaEstudiante() {
                     oferta={ofertaSeleccionada}
                     onClose={() => setMostrarDetalle(false)}
                 />
-                <Link to="/estudiante/cv" className="text-blue-600 underline block mt-4">Gestionar mi CV</Link>
+                <div className="w-full flex justify-center mt-6">
+                    <Link
+                        to="/estudiante/cv"
+                        className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded shadow transition-all no-underline"
+                        style={{ marginTop: '2rem' }}
+                    >
+                        📄 Gestionar mi CV
+                    </Link>
+                </div>
             </div>
         </div>
     );

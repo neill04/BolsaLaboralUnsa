@@ -4,6 +4,7 @@ import EmpresaList from "../features/empresas/EmpresaList";
 import OfertaList from "../features/ofertas/OfertaList";
 import ModalPostulantes from "../features/ofertas/ModalPostulantes";
 import ModalDetalleEmpresa from "../features/empresas/ModalDetalleEmpresa";
+import '../css/Admin.css';
 
 function VistaProfesor() {
     const [tab, setTab] = useState('ofertas');
@@ -22,8 +23,8 @@ function VistaProfesor() {
             <div className="bg-white p-6 rounded shadow">
                 <h2 className="text-xl font-bold mb-4">Vista Profesor</h2>
                 <div className="mb-4 flex gap-2">
-                    <button className="bg-black text-white px-4 py-2 rounded hover:shadow" onClick={() => setTab('ofertas')}>Ofertas</button>
-                    <button className="bg-black text-white px-4 py-2 rounded hover:shadow" onClick={() => setTab('empresas')}>Empresas</button>
+                    <button className={`top-button ${tab === 'ofertas' ? 'active' : 'inactive'}`} onClick={() => setTab('ofertas')}>Ofertas</button>
+                    <button className={`top-button ${tab === 'empresas' ? 'active' : 'inactive'}`} onClick={() => setTab('empresas')}>Empresas</button>
                 </div>
                 <Filtros onFilter={handleFilter} />
                 {tab === 'ofertas' ? (

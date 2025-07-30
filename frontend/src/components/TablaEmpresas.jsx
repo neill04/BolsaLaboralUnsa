@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/Tabla.css';
+import '../css/Admin.css';
 
 function TablaEmpresas({ empresas = [], onEdit, onDelete, onView, viewLabel = 'Ver' }) {
     const getTelefono = (e) => e.celular || e.datosContacto?.telefono || '-';
@@ -33,10 +34,10 @@ function TablaEmpresas({ empresas = [], onEdit, onDelete, onView, viewLabel = 'V
                                 <button className="bg-yellow-400 text-black px-2 py-1 rounded flex items-center gap-1" onClick={() => onView(e)}>👁️ {viewLabel}</button>
                             )}
                             {onEdit && (
-                                <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => onEdit(e)}>✏️</button>
+                                <button className="btn-icon edit" onClick={() => onEdit(e)}>✏️</button>
                             )}
                             {onDelete && (
-                                <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => onDelete(e)}>🗑️</button>
+                                <button className="btn-icon" onClick={() => onDelete(e)}>🗑️</button>
                             )}
                         </td>
                     )}
