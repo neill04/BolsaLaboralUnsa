@@ -12,7 +12,11 @@ const ModalRegistrarEmpresa = ({ open, onClose, onSave, initialData }) => {
         <div className="modal-backdrop">
             <div className="modal">
                 <h3>{initialData ? 'Editar Empresa' : 'Registrar Empresa'}</h3>
-                <EmpresaForm initialData={initialData} onSubmit={handleSubmit} onCancel={onClose} />
+                <EmpresaForm
+                    initialData={initialData || {}}
+                    onSubmit={handleSubmit}
+                    onCancel={onClose}
+                />
             </div>
         </div>
     );

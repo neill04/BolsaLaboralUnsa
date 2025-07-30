@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import OfertaList from "../features/ofertas/OfertaList";
 import Filtros from '../components/Filtros';
+import ModalDetalleOferta from "../features/ofertas/ModalDetalleOferta";
 
 function VistaEstudiante() {
     const [filtro, setFiltro] = useState({});
     const [cv, setCv] = useState(null);
     const [file, setFile] = useState(null);
+    const [mostrarDetalle, setMostrarDetalle] = useState(false);
+    const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
 
     const handleFilter = (f) => {
         setFiltro(f);
@@ -23,9 +26,17 @@ function VistaEstudiante() {
             <Filtros onFilter={handleFilter} />
             <OfertaList
                 filter={filtro}
-                onView={(oferta) => alert(`Detalles de ${oferta.titulo}`)}
+                onView={(oferta) => {
+                    setOfertaSeleccionada(oferta);
+                    setMostrarDetalle(true);
+                }}
                 onApply={(oferta) => alert(`Postular a ${oferta.titulo}`)}
                 viewLabel="Ver más detalles"
+            />
+            <ModalDetalleOferta
+                open={mostrarDetalle}
+                oferta={ofertaSeleccionada}
+                onClose={() => setMostrarDetalle(false)}
             />
             <h3>Mi CV</h3>
             {cv ? <p>Archivo subido: {cv}</p> : <p>No has subido un CV</p>}

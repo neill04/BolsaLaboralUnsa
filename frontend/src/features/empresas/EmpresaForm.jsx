@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
-const EmpresaForm = ({ initialData = {}, onSubmit, onCancel }) => {
+const EmpresaForm = ({ initialData, onSubmit, onCancel }) => {
     const [ruc, setRuc] = useState('');
     const [nombre, setNombre] = useState('');
     const [telefono, setTelefono] = useState('');
+    const [direccion, setDireccion] = useState('');
+    const [email, setEmail] = useState('');
     const [descripcion, setDescripcion] = useState('');
 
     useEffect(() => {
-        setRuc(initialData.ruc || '');
-        setNombre(initialData.nombre || '');
-        setTelefono(initialData.datosContacto?.telefono || '');
-        setDescripcion(initialData.descripcion || '');
+        const data = initialData || {};
+        setRuc(data.ruc || '');
+        setNombre(data.nombre || '');
+        setTelefono(data.datosContacto?.telefono || '');
+        setDireccion(data.datosContacto?.direccion || '');
+        setEmail(data.datosContacto?.email || '');
+        setDescripcion(data.descripcion || '');
     }, [initialData]);
 
     const handleSubmit = (e) => {
@@ -19,7 +24,7 @@ const EmpresaForm = ({ initialData = {}, onSubmit, onCancel }) => {
             ruc,
             nombre,
             descripcion,
-            datosContacto: { telefono },
+            datosContacto: { telefono, direccion, email },
         });
     };
 
@@ -44,6 +49,18 @@ const EmpresaForm = ({ initialData = {}, onSubmit, onCancel }) => {
                 placeholder="Teléfono"
                 value={telefono}
                 onChange={(e) => setTelefono(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder="Dirección"
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
+            />
+            <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
             />
             <textarea
                 placeholder="Descripción"

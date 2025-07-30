@@ -28,6 +28,8 @@ public class RegistrarOfertaService {
         Empresa empresa = empresaRepository.buscarPorId(empresaId)
                 .orElseThrow(() -> new EmpresaNoEncontradaException(empresaId));
         oferta.setEmpresa(empresa);
+        oferta.setFechaPublicacion(java.time.LocalDateTime.now());
+        oferta.setEstado(com.unsa.bolsalaboral.domain.models.EstadoOferta.ACTIVA);
         return ofertaRepository.guardar(oferta);
     }
 }
