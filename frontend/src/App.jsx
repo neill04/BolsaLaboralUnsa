@@ -8,6 +8,7 @@ import VistaAdmin from './views/VistaAdmin';
 import EmpresaList from './features/empresas/EmpresaList';
 import OfertaList from "./features/ofertas/OfertaList";
 import Layout from "./components/Layout";
+import RequireRole from './components/RequiredRole';
 
 function App() {
     return (
@@ -16,9 +17,21 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/profesor" element={<VistaProfesor />} />
-                    <Route path="/estudiante" element={<VistaEstudiante />} />
-                    <Route path="/admin" element={<VistaAdmin />} />
+                    <Route path="/profesor" element={
+                        <RequireRole role="PROFESOR">
+                            <VistaProfesor />
+                        </RequireRole>
+                    } />
+                    <Route path="/estudiante" element={
+                        <RequireRole role="ESTUDIANTE">
+                            <VistaEstudiante />
+                        </RequireRole>
+                    } />
+                    <Route path="/admin" element={
+                        <RequireRole role="ADMIN">
+                            <VistaAdmin />
+                        </RequireRole>
+                    } />
                     <Route path="/empresas" element={<EmpresaList />} />
                     <Route path="/ofertas" element={<OfertaList />} />
                 </Routes>
