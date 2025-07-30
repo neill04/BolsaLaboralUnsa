@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import OfertaList from "../features/ofertas/OfertaList";
 import Filtros from '../components/Filtros';
 import ModalDetalleOferta from "../features/ofertas/ModalDetalleOferta";
+import { registrarPostulacion } from '../api/postulacionService';
 
 function VistaEstudiante() {
     const [filtro, setFiltro] = useState({});
-    const [cv, setCv] = useState(null);
-    const [file, setFile] = useState(null);
     const [mostrarDetalle, setMostrarDetalle] = useState(false);
     const [ofertaSeleccionada, setOfertaSeleccionada] = useState(null);
 
@@ -14,10 +14,14 @@ function VistaEstudiante() {
         setFiltro(f);
     };
 
-    const handleUpload = () => {
-        if (!file) return;
-        console.log('Upload', file);
-        setCv(file.name);
+    const postular = async (oferta) => {
+        try {
+            await registrarPostulacion(oferta.id, {});
+            alert('Postulación enviada');
+        } catch (e) {
+            console.error(e);
+            alert('Error al postular');
+        }
     };
 
     return (
@@ -30,7 +34,7 @@ function VistaEstudiante() {
                     setOfertaSeleccionada(oferta);
                     setMostrarDetalle(true);
                 }}
-                onApply={(oferta) => alert(`Postular a ${oferta.titulo}`)}
+                onApply={postular}
                 viewLabel="Ver más detalles"
             />
             <ModalDetalleOferta
@@ -38,14 +42,7 @@ function VistaEstudiante() {
                 oferta={ofertaSeleccionada}
                 onClose={() => setMostrarDetalle(false)}
             />
-            <h3>Mi CV</h3>
-            {cv ? <p>Archivo subido: {cv}</p> : <p>No has subido un CV</p>}
-            <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={(e) => setFile(e.target.files[0])}
-            />
-            <button onClick={handleUpload}>Subir</button>
+            <Link to="/estudiante/cv">Gestionar mi CV</Link>
         </div>
     );
 }

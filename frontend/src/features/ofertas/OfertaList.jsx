@@ -66,10 +66,7 @@ const OfertaList = ({
                         titulo: o.titulo,
                         empresa: o.empresa.nombre,
                         postulaciones: 1,
-                        fecha: formatDistanceToNow(new Date(o.fechaPublicacion), {
-                            addSuffix: true,
-                            locale: es,
-                        }),
+                        fecha:o.fechaPublicacion,
                     }))}
                     onEdit={onEdit || editarOferta}
                     onDelete={onDelete}

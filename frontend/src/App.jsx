@@ -4,6 +4,7 @@ import Login from './Login';
 import Dashboard from './Dashboard';
 import VistaProfesor from './views/VistaProfesor';
 import VistaEstudiante from './views/VistaEstudiante';
+import VistaCV from './views/VistaCV';
 import VistaAdmin from './views/VistaAdmin';
 import EmpresaList from './features/empresas/EmpresaList';
 import OfertaList from "./features/ofertas/OfertaList";
@@ -25,6 +26,11 @@ function App() {
                     <Route path="/estudiante" element={
                         <RequireRole role="ESTUDIANTE">
                             <VistaEstudiante />
+                        </RequireRole>
+                    } />
+                    <Route path="/estudiante/cv" element={
+                        <RequireRole role="ESTUDIANTE">
+                            <VistaCV />
                         </RequireRole>
                     } />
                     <Route path="/admin" element={
