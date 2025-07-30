@@ -10,6 +10,7 @@ const ModalRegistrarOferta = ({ open, onClose, onSave, initialData }) => {
 
     return (
         <div className="modal-backdrop">
+            <button className="modal-close" onClick={onClose}>×</button>
             <div className="modal">
                 <h3>{initialData ? 'Editar Oferta' : 'Registrar Oferta'}</h3>
                 <OfertaForm

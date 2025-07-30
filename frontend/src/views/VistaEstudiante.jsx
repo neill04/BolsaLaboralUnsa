@@ -25,24 +25,26 @@ function VistaEstudiante() {
     };
 
     return (
-        <div>
-            <h2>Vista Estudiante</h2>
-            <Filtros onFilter={handleFilter} />
-            <OfertaList
-                filter={filtro}
-                onView={(oferta) => {
-                    setOfertaSeleccionada(oferta);
-                    setMostrarDetalle(true);
-                }}
-                onApply={postular}
-                viewLabel="Ver más detalles"
-            />
-            <ModalDetalleOferta
-                open={mostrarDetalle}
-                oferta={ofertaSeleccionada}
-                onClose={() => setMostrarDetalle(false)}
-            />
-            <Link to="/estudiante/cv">Gestionar mi CV</Link>
+        <div className="bg-gray-50 min-h-screen p-6">
+            <div className="bg-white p-6 rounded shadow">
+                <h2 className="text-xl font-bold mb-4">Vista Estudiante</h2>
+                <Filtros onFilter={handleFilter} />
+                <OfertaList
+                    filter={filtro}
+                    onView={(oferta) => {
+                        setOfertaSeleccionada(oferta);
+                        setMostrarDetalle(true);
+                    }}
+                    onApply={postular}
+                    viewLabel="Ver más detalles"
+                />
+                <ModalDetalleOferta
+                    open={mostrarDetalle}
+                    oferta={ofertaSeleccionada}
+                    onClose={() => setMostrarDetalle(false)}
+                />
+                <Link to="/estudiante/cv" className="text-blue-600 underline block mt-4">Gestionar mi CV</Link>
+            </div>
         </div>
     );
 }

@@ -68,7 +68,7 @@ const OfertaList = ({
                         postulaciones: 1,
                         fecha:o.fechaPublicacion,
                     }))}
-                    onEdit={onEdit || editarOferta}
+                    onEdit={onEdit}
                     onDelete={onDelete}
                     onView={onView}
                     onApply={onApply}

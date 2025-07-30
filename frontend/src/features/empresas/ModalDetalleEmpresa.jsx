@@ -9,6 +9,7 @@ const ModalDetalleEmpresa = ({ open, onClose, empresa }) => {
     return (
         <div className="modal-backdrop">
             <div className="modal">
+                <button className="modal-close" onClick={onClose}>×</button>
                 <h3>Detalle de Empresa</h3>
                 <p><strong>RUC:</strong> {ruc}</p>
                 <p><strong>Nombre:</strong> {nombre}</p>
@@ -16,7 +17,7 @@ const ModalDetalleEmpresa = ({ open, onClose, empresa }) => {
                 <p><strong>Dirección:</strong> {direccion || '-'}</p>
                 <p><strong>Email:</strong> {email || '-'}</p>
                 <p><strong>Descripción:</strong> {descripcion || '-'}</p>
-                <button onClick={onClose}>Cerrar</button>
+                <button className="bg-blue-500 text-white px-3 py-1 rounded mt-4" onClick={onClose}>Cerrar</button>
             </div>
         </div>
     );

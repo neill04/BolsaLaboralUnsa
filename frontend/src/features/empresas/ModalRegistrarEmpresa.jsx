@@ -11,6 +11,7 @@ const ModalRegistrarEmpresa = ({ open, onClose, onSave, initialData }) => {
     return (
         <div className="modal-backdrop">
             <div className="modal">
+                <button className="modal-close" onClick={onClose}>×</button>
                 <h3>{initialData ? 'Editar Empresa' : 'Registrar Empresa'}</h3>
                 <EmpresaForm
                     initialData={initialData || {}}

@@ -12,7 +12,8 @@ function TablaOfertas({ ofertas = [], onView, onEdit, onDelete, onApply, viewLab
     const getPostulaciones = (o) => o.postulaciones ?? o.postulacionesCount ?? (o.postulacionesList ? o.postulacionesList.length : 0);
 
     return (
-        <table className="tabla">
+        <div className="overflow-x-auto">
+            <table className="tabla text-center">
             <thead>
             <tr>
                 <th>Título</th>
@@ -30,18 +31,18 @@ function TablaOfertas({ ofertas = [], onView, onEdit, onDelete, onApply, viewLab
                     <td>{getPostulaciones(o)}</td>
                     <td>{formatFecha(o.fecha || o.fechaPublicacion)}</td>
                     {(onView || onEdit || onDelete || onApply) && (
-                        <td>
+                        <td className="flex justify-center gap-2">
                             {onView && (
-                                <button onClick={() => onView(o)}>{viewLabel}</button>
+                                <button className="bg-yellow-400 text-black px-2 py-1 rounded flex items-center gap-1" onClick={() => onView(o)}>👁️ {viewLabel}</button>
                             )}
                             {onEdit && (
-                                <button onClick={() => onEdit(o)}>Editar</button>
+                                <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => onEdit(o)}>✏️</button>
                             )}
                             {onDelete && (
-                                <button onClick={() => onDelete(o)}>Borrar</button>
+                                <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => onDelete(o)}>🗑️</button>
                             )}
                             {onApply && (
-                                <button onClick={() => onApply(o)}>Postular</button>
+                                <button className="bg-yellow-400 text-black px-2 py-1 rounded shadow" onClick={() => onApply(o)}>📨</button>
                             )}
                         </td>
                     )}
@@ -49,6 +50,7 @@ function TablaOfertas({ ofertas = [], onView, onEdit, onDelete, onApply, viewLab
             ))}
             </tbody>
         </table>
+        </div>
     );
 }
 

@@ -22,6 +22,7 @@ const ModalPostulantes = ({ open, onClose, ofertaId }) => {
     return (
         <div className="modal-backdrop">
             <div className="modal">
+                <button className="modal-close" onClick={onClose}>×</button>
                 <h3>Postulantes</h3>
                 {postulantes.length > 0 ? (
                     <ul>
@@ -32,7 +33,7 @@ const ModalPostulantes = ({ open, onClose, ofertaId }) => {
                 ) : (
                     <p>No hay postulantes</p>
                 )}
-                <button onClick={onClose}>Cerrar</button>
+                <button className="bg-blue-500 text-white px-3 py-1 rounded mt-4" onClick={onClose}>Cerrar</button>
             </div>
         </div>
     );

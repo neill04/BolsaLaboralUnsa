@@ -18,32 +18,34 @@ function VistaProfesor() {
     };
 
     return (
-        <div>
-            <h2>Vista Profesor</h2>
-            <div>
-                <button onClick={() => setTab('ofertas')}>Ofertas</button>
-                <button onClick={() => setTab('empresas')}>Empresas</button>
+        <div className="bg-gray-50 min-h-screen p-6">
+            <div className="bg-white p-6 rounded shadow">
+                <h2 className="text-xl font-bold mb-4">Vista Profesor</h2>
+                <div className="mb-4 flex gap-2">
+                    <button className="bg-black text-white px-4 py-2 rounded hover:shadow" onClick={() => setTab('ofertas')}>Ofertas</button>
+                    <button className="bg-black text-white px-4 py-2 rounded hover:shadow" onClick={() => setTab('empresas')}>Empresas</button>
+                </div>
+                <Filtros onFilter={handleFilter} />
+                {tab === 'ofertas' ? (
+                    <OfertaList
+                        filter={filtro}
+                        onView={(oferta) => {
+                            setOfertaSeleccionada(oferta);
+                            setMostrarPostulantes(true);
+                        }}
+                        viewLabel="Ver postulantes"
+                    />
+                ) : (
+                    <EmpresaList
+                        filter={filtro}
+                        onView={(emp) => {
+                            setEmpresaSeleccionada(emp);
+                            setMostrarEmpresa(true);
+                        }}
+                        viewLabel="Detalles"
+                    />
+                )}
             </div>
-            <Filtros onFilter={handleFilter} />
-            {tab === 'ofertas' ? (
-                <OfertaList
-                    filter={filtro}
-                    onView={(oferta) => {
-                        setOfertaSeleccionada(oferta);
-                        setMostrarPostulantes(true);
-                    }}
-                    viewLabel="Ver postulantes"
-                />
-            ) : (
-                <EmpresaList
-                    filter={filtro}
-                    onView={(emp) => {
-                        setEmpresaSeleccionada(emp);
-                        setMostrarEmpresa(true);
-                    }}
-                    viewLabel="Detalles"
-                />
-            )}
             <ModalPostulantes
                 open={mostrarPostulantes}
                 onClose={() => setMostrarPostulantes(false)}

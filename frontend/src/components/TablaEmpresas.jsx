@@ -7,6 +7,7 @@ function TablaEmpresas({ empresas = [], onEdit, onDelete, onView, viewLabel = 'V
     const getTipo = (e) => e.tipo || e.descripcion;
     const getTotalOfertas = (e) => e.totalOfertas ?? (e.ofertas ? e.ofertas.length : 0);
     return (
+        <div className="overflow-x-auto">
         <table className="tabla">
             <thead>
             <tr>
@@ -27,15 +28,15 @@ function TablaEmpresas({ empresas = [], onEdit, onDelete, onView, viewLabel = 'V
                     <td>{getTelefono(e)}</td>
                     <td>{getTotalOfertas(e)}</td>
                     {(onEdit || onDelete || onView) && (
-                        <td>
+                        <td className="flex gap-2">
                             {onView && (
-                                <button onClick={() => onView(e)}>{viewLabel}</button>
+                                <button className="bg-yellow-400 text-black px-2 py-1 rounded flex items-center gap-1" onClick={() => onView(e)}>👁️ {viewLabel}</button>
                             )}
                             {onEdit && (
-                                <button onClick={() => onEdit(e)}>Editar</button>
+                                <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => onEdit(e)}>✏️</button>
                             )}
                             {onDelete && (
-                                <button onClick={() => onDelete(e)}>Borrar</button>
+                                <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => onDelete(e)}>🗑️</button>
                             )}
                         </td>
                     )}
@@ -43,6 +44,7 @@ function TablaEmpresas({ empresas = [], onEdit, onDelete, onView, viewLabel = 'V
             ))}
             </tbody>
         </table>
+        </div>
     );
 }
 

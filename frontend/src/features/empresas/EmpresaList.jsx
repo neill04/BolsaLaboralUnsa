@@ -63,7 +63,7 @@ const EmpresaList = ({
                         celular: e.datosContacto?.telefono || "-",
                         totalOfertas: e.ofertas ? e.ofertas.length : e.totalOfertas || 0,
                     }))}
-                    onEdit={onEdit || editarEmpresa}
+                    onEdit={onEdit}
                     onDelete={onDelete}
                     onView={onView}
                     viewLabel={viewLabel}
