@@ -7,6 +7,12 @@ export const obtenerEmpresas = async () => {
     return await respuesta.json();
 };
 
+export const obtenerEmpresa = async (id) => {
+    const respuesta = await fetch(`${API_URL}/${id}`);
+    if (!respuesta.ok) throw new Error('Error al obtener la empresa');
+    return await respuesta.json();
+};
+
 // Registrar una empresa
 export const registrarEmpresa = async (datos) => {
     const respuesta = await fetch(API_URL, {

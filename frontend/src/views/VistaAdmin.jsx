@@ -1,51 +1,105 @@
-import React, { useEffect, useState } from 'react';
-import TablaEmpresas from '../components/TablaEmpresas';
-import TablaOfertas from '../components/TablaOfertas';
+import React, { useState } from 'react';
+import EmpresaList from "../features/empresas/EmpresaList";
+import OfertaList from "../features/ofertas/OfertaList";
+import ModalRegistrarEmpresa from "../features/empresas/ModalRegistrarEmpresa";
+import ModalRegistrarOferta from "../features/ofertas/ModalRegistrarOferta";
+import { registrarEmpresa, actualizarEmpresa } from "../api/empresaService";
+import { registrarOferta } from "../api/ofertaService";
+import '../css/Admin.css';
 
 function VistaAdmin() {
     const [tab, setTab] = useState('empresas');
-    const [empresas, setEmpresas] = useState([]);
-    const [ofertas, setOfertas] = useState([]);
     const [busqueda, setBusqueda] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOfertaOpen, setModalOfertaOpen] = useState(false);
+    const [empresaEditar, setEmpresaEditar] = useState(null);
 
-    useEffect(() => {
-        fetch('/api/empresas')
-            .then((r) => r.json())
-            .then(setEmpresas)
-            .catch(() => {});
-        fetch('/api/ofertas')
-            .then((r) => r.json())
-            .then(setOfertas)
-            .catch(() => {});
-    }, []);
+    const abrirRegistrar = () => {
+        setEmpresaEditar(null);
+        setModalOpen(true);
+    };
 
-    const filtradasEmpresas = empresas.filter((e) =>
-        e.razonSocial?.toLowerCase().includes(busqueda.toLowerCase())
-    );
+    const abrirRegistrarOferta = () => {
+        setModalOfertaOpen(true);
+    };
 
-    const filtradasOfertas = ofertas.filter((o) =>
-        o.titulo?.toLowerCase().includes(busqueda.toLowerCase())
-    );
+    const abrirEditar = (empresa) => {
+        setEmpresaEditar(empresa);
+        setModalOpen(true);
+    };
+
+    const guardarEmpresa = async (datos) => {
+        try {
+            if (empresaEditar) {
+                await actualizarEmpresa(empresaEditar.id, datos);
+            } else {
+                await registrarEmpresa(datos);
+            }
+            setModalOpen(false);
+            window.location.reload();
+        } catch (e) {
+            console.error(e);
+            alert('Error al guardar');
+        }
+    };
+
+    const guardarOferta = async (datos) => {
+        try {
+            await registrarOferta(datos.empresaId, datos);
+            setModalOfertaOpen(false);
+            window.location.reload();
+        } catch (e) {
+            console.error(e);
+            alert('Error al guardar oferta');
+        }
+    };
 
     return (
-        <div>
-            <h2>Vista Administrador</h2>
-            <div>
-                <button onClick={() => setTab('empresas')}>Gestión de Empresas</button>
-                <button onClick={() => setTab('ofertas')}>Gestión de Ofertas</button>
-                <button style={{ background: 'green', color: 'white' }}>+ Agregar</button>
+        <div className="bg-gray-50 min-h-screen p-6">
+            <div className="bg-white p-6 rounded shadow">
+                <h2 className="text-xl font-bold mb-4">Vista Administrador</h2>
+                <div className="top-bar">
+                    <button className={`top-button ${tab === 'empresas' ? 'active' : 'inactive'}`} onClick={() => setTab('empresas')}>GESTIÓN DE EMPRESAS</button>
+                    <button className={`top-button ${tab === 'ofertas' ? 'active' : 'inactive'}`} onClick={() => setTab('ofertas')}>GESTIÓN DE OFERTAS</button>
+                    {tab === 'empresas' && (
+                        <button className="btn-add" onClick={abrirRegistrar}>+ Agregar Empresa</button>
+                    )}
+                    {tab === 'ofertas' && (
+                        <button className="btn-add" onClick={abrirRegistrarOferta}>+ Agregar Oferta</button>
+                    )}
+                </div>
+                <input
+                    className="search-input"
+                    type="text"
+                    placeholder="Buscar por nombre o estado"
+                    value={busqueda}
+                    onChange={(e) => setBusqueda(e.target.value)}
+                />
+                {tab === 'empresas' ? (
+                    <EmpresaList
+                        search={busqueda}
+                        onEdit={abrirEditar}
+                        onDelete={(emp) => alert(`Borrar empresa ${emp.nombre || emp.razonSocial}`)}
+                    />
+                ) : (
+                    <OfertaList
+                        search={busqueda}
+                        onEdit={(ofer) => alert(`Editar oferta ${ofer.titulo}`)}
+                        onDelete={(ofer) => alert(`Borrar oferta ${ofer.titulo}`)}
+                    />
+                )}
             </div>
-            <input
-                type="text"
-                placeholder="Buscar por nombre o estado"
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
+            <ModalRegistrarEmpresa
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onSave={guardarEmpresa}
+                initialData={empresaEditar}
             />
-            {tab === 'empresas' ? (
-                <TablaEmpresas empresas={filtradasEmpresas} onEdit={() => {}} onDelete={() => {}} />
-            ) : (
-                <TablaOfertas ofertas={filtradasOfertas} onView={() => {}} />
-            )}
+            <ModalRegistrarOferta
+                open={modalOfertaOpen}
+                onClose={() => setModalOfertaOpen(false)}
+                onSave={guardarOferta}
+            />
         </div>
     );
 }

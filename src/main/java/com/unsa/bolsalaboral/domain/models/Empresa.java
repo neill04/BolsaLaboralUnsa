@@ -1,5 +1,6 @@
 package com.unsa.bolsalaboral.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unsa.bolsalaboral.domain.vo.DatosContacto;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "empresas")
 public class Empresa {

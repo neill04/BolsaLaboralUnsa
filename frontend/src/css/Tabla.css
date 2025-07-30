@@ -2,19 +2,30 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    font-size: 14px;
 }
 
 .tabla th,
 .tabla td {
-    border: 1px solid #ccc;
-    padding: 8px;
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
     text-align: left;
 }
 
 .tabla th {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
+    font-weight: 600;
 }
 
 .tabla button {
-    margin-right: 5px;
+    margin-right: 5px;border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.tabla tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabla tbody tr:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

@@ -2,13 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #d60000;
+    background-color: #f59e0b;
     padding: 10px 20px;
-    color: white;
+    color: black;
 }
 
 .navbar-brand {
-    color: white;
+    color: black;
     font-weight: bold;
     margin-right: 20px;
     text-decoration: none;
@@ -28,4 +28,13 @@
 
 .navbar-user {
     font-size: 20px;
+}
+
+.logout-button {
+    margin-left: 10px;
+    background: transparent;
+    border: 1px solid black;
+    padding: 4px 8px;
+    color: black;
+    cursor: pointer;
 }

@@ -23,6 +23,9 @@ public class OfertaLaboral {
     @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
 
+    @Column(name = "detalles", columnDefinition = "TEXT")
+    private String detalles;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
@@ -58,6 +61,10 @@ public class OfertaLaboral {
         return descripcion;
     }
 
+    public String getDetalles() {
+        return detalles;
+    }
+
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -80,6 +87,10 @@ public class OfertaLaboral {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
     }
 
     public void setEmpresa(Empresa empresa) {
