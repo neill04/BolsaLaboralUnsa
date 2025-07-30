@@ -1,10 +1,39 @@
 import React, { useState } from 'react';
 import EmpresaList from "../features/empresas/EmpresaList";
 import OfertaList from "../features/ofertas/OfertaList";
+import ModalRegistrarEmpresa from "../features/empresas/ModalRegistrarEmpresa";
+import { registrarEmpresa, actualizarEmpresa } from "../api/empresaService";
 
 function VistaAdmin() {
     const [tab, setTab] = useState('empresas');
     const [busqueda, setBusqueda] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+    const [empresaEditar, setEmpresaEditar] = useState(null);
+
+    const abrirRegistrar = () => {
+        setEmpresaEditar(null);
+        setModalOpen(true);
+    };
+
+    const abrirEditar = (empresa) => {
+        setEmpresaEditar(empresa);
+        setModalOpen(true);
+    };
+
+    const guardarEmpresa = async (datos) => {
+        try {
+            if (empresaEditar) {
+                await actualizarEmpresa(empresaEditar.id, datos);
+            } else {
+                await registrarEmpresa(datos);
+            }
+            setModalOpen(false);
+            window.location.reload();
+        } catch (e) {
+            console.error(e);
+            alert('Error al guardar');
+        }
+    };
 
     return (
         <div>
@@ -12,7 +41,7 @@ function VistaAdmin() {
             <div>
                 <button onClick={() => setTab('empresas')}>Gestión de Empresas</button>
                 <button onClick={() => setTab('ofertas')}>Gestión de Ofertas</button>
-                <button style={{ background: 'green', color: 'white' }}>+ Agregar</button>
+                <button style={{ background: 'green', color: 'white' }} onClick={abrirRegistrar}>+ Agregar</button>
             </div>
             <input
                 type="text"
@@ -23,7 +52,7 @@ function VistaAdmin() {
             {tab === 'empresas' ? (
                 <EmpresaList
                     search={busqueda}
-                    onEdit={(emp) => alert(`Editar empresa ${emp.nombre || emp.razonSocial}`)}
+                    onEdit={abrirEditar}
                     onDelete={(emp) => alert(`Borrar empresa ${emp.nombre || emp.razonSocial}`)}
                 />
             ) : (
@@ -33,6 +62,12 @@ function VistaAdmin() {
                     onDelete={(ofer) => alert(`Borrar oferta ${ofer.titulo}`)}
                 />
             )}
+            <ModalRegistrarEmpresa
+                open={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onSave={guardarEmpresa}
+                initialData={empresaEditar}
+            />
         </div>
     );
 }
